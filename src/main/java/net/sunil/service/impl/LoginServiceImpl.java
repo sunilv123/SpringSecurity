@@ -1,6 +1,9 @@
 package net.sunil.service.impl;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.ServletException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,6 +12,7 @@ import org.springframework.util.Assert;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 import net.sunil.bean.AppConstants;
 import net.sunil.bean.LoginBean;
 import net.sunil.modal.AppUser;
@@ -43,7 +47,7 @@ public class LoginServiceImpl implements LoginService{
 		  return Jwts.builder()
 	                .setSubject(user.getEmail())
 	                .setExpiration(new Date(System.currentTimeMillis() + AppConstants.EXPIRATION_TIME))
-	                .signWith(SignatureAlgorithm.HS512, AppConstants.SECRET.getBytes())
+	                .signWith(SignatureAlgorithm.HS256, AppConstants.SECRET.getBytes())
 	                .compact();
 		  
 	}
@@ -56,10 +60,15 @@ public class LoginServiceImpl implements LoginService{
 		loginBean.setName(appUser.getName());
 		loginBean.setEmail(appUser.getName());
 		loginBean.setMobile(appUser.getMobile());
-		loginBean.setToken(generateToken(appUser));
+		loginBean.setToken(AppConstants.TOKEN_PREFIX+generateToken(appUser));
 		
 		
 		return loginBean;
+	}
+	
+    private String getHashedPassword(String password) {
+    	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder.encode(password);
 	}
 
 	@Override
@@ -77,11 +86,32 @@ public class LoginServiceImpl implements LoginService{
 	    appUser.setName(loginBean.getName());
 	    appUser.setEmail(loginBean.getEmail());
 	    appUser.setMobile(loginBean.getMobile());
+	    appUser.setPassword(getHashedPassword(loginBean.getPassword()));
 	    
 	    appUserRepository.save(appUser);
 	    
 		return getLoggedInUserBean(appUser);
 		
+	}
+
+	@Override
+	public List<AppUser> getAllUsers(String xAuth) throws Exception {
+		
+		  try {
+			  System.out.println("xAuth : "+xAuth);
+	            final String user = Jwts.parser().setSigningKey(AppConstants.SECRET)
+            		 .parseClaimsJws(xAuth.replace(AppConstants.TOKEN_PREFIX, ""))
+//	            		 .parseClaimsJws(xAuth)
+	            		 .getBody()
+	            		 .getSubject();
+	           Assert.notNull(user, "Invalid token");
+	            
+	        } catch (final SignatureException e) {
+	            throw new ServletException("Invalid token");
+	        }
+		
+	 return appUserRepository.findAll();
+	
 	}
 	
 }

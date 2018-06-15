@@ -2,8 +2,10 @@ package net.sunil.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +30,10 @@ public class LoginController {
 	@PostMapping("/signup")
 	public GenericResponse signup(@RequestBody LoginBean loginBean) {
 		return new GenericResponse(AppConstants.GENERIC_RESPONSE_SUCCESS, loginService.signup(loginBean));
+	}
+	
+	@GetMapping("/get-all-users")
+	public GenericResponse getAllUsers(@RequestHeader("X-Authorization") String xAuth) throws Exception {
+		return new GenericResponse(AppConstants.GENERIC_RESPONSE_SUCCESS, loginService.getAllUsers(xAuth));
 	}
 }
