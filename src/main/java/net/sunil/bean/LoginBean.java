@@ -1,9 +1,14 @@
 package net.sunil.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 public class LoginBean {
 
 	private String name;
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	
 	private String email;
@@ -20,6 +25,7 @@ public class LoginBean {
 		this.name = userName;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}

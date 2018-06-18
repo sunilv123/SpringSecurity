@@ -1,6 +1,7 @@
 package net.sunil.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +34,7 @@ public class LoginController {
 	}
 	
 	@GetMapping("/get-all-users")
-	public GenericResponse getAllUsers(@RequestHeader("X-Authorization") String xAuth) throws Exception {
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_SUCCESS, loginService.getAllUsers(xAuth));
+	public GenericResponse getAllUsers( Authentication authentication) throws Exception {
+		return new GenericResponse(AppConstants.GENERIC_RESPONSE_SUCCESS, loginService.getAllUsers(authentication));
 	}
 }
