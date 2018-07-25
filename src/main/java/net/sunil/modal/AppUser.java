@@ -1,9 +1,13 @@
 package net.sunil.modal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.ColumnTransformer;
 
 @Entity
 public class AppUser {
@@ -14,6 +18,19 @@ public class AppUser {
 
 	private String name;
 	
+	
+	//@ColumnTransformer(read = "pgp_sym_decrypt(email, ‘secretKey')", write = "pgp_sym_encrypt(?, ‘secretKey’)")
+	@ColumnTransformer(
+		    read =  "pgp_sym_decrypt(" +
+		            "    email, " +
+		            "    current_setting('secret.key')" +
+		            ")",
+		    write = "pgp_sym_encrypt( " +
+		            "    ?, " +
+		            "    current_setting('secret.key')" +
+		            ") ")
+	//@Transient
+	@Column(columnDefinition="bytea")
 	private String email;
 	
 	private String mobile;
