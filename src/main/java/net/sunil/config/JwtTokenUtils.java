@@ -3,10 +3,8 @@ package net.sunil.config;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.function.Function;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
