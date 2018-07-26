@@ -14,4 +14,25 @@ public class AppConstants {
     
     public static final String HEADER_STRING = "Authorization";
 	
+    
+    public static void main(String[] args) {
+		
+    	System.out.println(rev("Sunil"));
+    	
+	}
+    
+    
+    public static String rev(String str) {
+    	
+    	if(str.length() == 0) {
+    		return "";
+    	}else {
+    		
+    		return rev(str.substring(1, str.length()))+""+str.charAt(0);
+    		
+    	}
+    	
+    }
+    
+    
 }

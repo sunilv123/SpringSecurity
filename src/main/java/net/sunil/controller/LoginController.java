@@ -17,13 +17,13 @@ import net.sunil.service.LoginService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/login")
 public class LoginController {
 
 	@Autowired
 	LoginService loginService;
 	
-	@PostMapping("/login")
+	@PostMapping("/")
 	public GenericResponse login(@RequestBody LoginBean loginBean) {
 		return new GenericResponse(AppConstants.GENERIC_RESPONSE_SUCCESS, loginService.login(loginBean));
 	}

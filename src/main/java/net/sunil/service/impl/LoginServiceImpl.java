@@ -65,7 +65,7 @@ public class LoginServiceImpl implements LoginService{
 		LoginBean loginBean = new LoginBean();
 		
 		loginBean.setName(appUser.getName());
-		loginBean.setEmail(appUser.getName());
+		loginBean.setEmail(appUser.getEmail());
 		loginBean.setMobile(appUser.getMobile());
 		loginBean.setToken(AppConstants.TOKEN_PREFIX+generateToken(appUser));
 		
@@ -92,10 +92,11 @@ public class LoginServiceImpl implements LoginService{
 		Assert.notNull(loginBean.getMobile(), "Mobile number doesn't exist");
 		Assert.notNull(loginBean.getName(), "name doesn't exist");
 		
-	    Assert.isNull(appUserRepository.findByEmail(loginBean.getEmail()), loginBean.getEmail() +" already exist");
-	    Assert.isNull(appUserRepository.findByMobile(loginBean.getMobile()), loginBean.getMobile() +" already exist");
+	  //  Assert.isNull(appUserRepository.findByEmail(loginBean.getEmail()), loginBean.getEmail() +" already exist");
+	   // Assert.isNull(appUserRepository.findByMobile(loginBean.getMobile()), loginBean.getMobile() +" already exist");
 		
 	    AppUser appUser = new AppUser();
+	    
 	    
 	    appUser.setName(loginBean.getName());
 	    appUser.setEmail(loginBean.getEmail());

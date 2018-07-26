@@ -53,5 +53,7 @@ public class GenericResponse {
 	public void setPayLoad(Object payLoad) {
 		this.payLoad = payLoad;
 	}
+
+	
 	
 }
