@@ -1,4 +1,4 @@
-package net.sunil.bean;
+package net.sunil.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 public class LoginBean {
 
+	
+	private String userName;
+	
 	private String name;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
@@ -56,6 +59,14 @@ public class LoginBean {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 }

@@ -17,8 +17,9 @@ import org.springframework.util.Assert;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
-import net.sunil.bean.AppConstants;
-import net.sunil.bean.LoginBean;
+import net.sunil.config.JwtTokenUtils;
+import net.sunil.dto.AppConstants;
+import net.sunil.dto.LoginBean;
 import net.sunil.modal.AppUser;
 import net.sunil.repo.AppUserRepository;
 import net.sunil.service.LoginService;
@@ -32,6 +33,12 @@ public class LoginServiceImpl implements LoginService{
 	@Autowired
 	private AppUserRepository appUserRepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private JwtTokenUtils jwtTokenUtils;
+	
 	@Override
 	public LoginBean login(LoginBean loginBean) {
 		
@@ -42,23 +49,10 @@ public class LoginServiceImpl implements LoginService{
 		
 		Assert.notNull(appUser, "User name or password something went wrong");
 		
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		
 		Assert.isTrue( (passwordEncoder.matches(loginBean.getPassword(), appUser.getPassword()) ), "User name or password something went wrong");
 		
 		return getLoggedInUserBean(appUser);
 	}
-	
-	private String generateToken(AppUser user) {
-		
-		  return Jwts.builder()
-	                .setSubject(user.getEmail())
-	                .setExpiration(new Date(System.currentTimeMillis() + AppConstants.EXPIRATION_TIME))
-	                .signWith(SignatureAlgorithm.HS256, AppConstants.SECRET.getBytes())
-	                .compact();
-		  
-	}
-	
 	
 	private LoginBean getLoggedInUserBean(AppUser appUser) {
 		
@@ -67,16 +61,8 @@ public class LoginServiceImpl implements LoginService{
 		loginBean.setName(appUser.getName());
 		loginBean.setEmail(appUser.getEmail());
 		loginBean.setMobile(appUser.getMobile());
-		loginBean.setToken(AppConstants.TOKEN_PREFIX+generateToken(appUser));
-		
-//		final Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                		loginBean.getEmail(),
-//                		loginBean.getPassword()
-//                )
-//        );
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//		
+		loginBean.setToken(AppConstants.TOKEN_PREFIX+jwtTokenUtils.generateToken(appUser));
+
 		return loginBean;
 	}
 	

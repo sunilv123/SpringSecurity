@@ -1,4 +1,4 @@
-package net.sunil.bean;
+package net.sunil.dto;
 
 public class UserBean {
 

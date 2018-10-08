@@ -24,8 +24,8 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
-import net.sunil.bean.AppConstants;
-import net.sunil.bean.GenericResponse;
+import net.sunil.dto.AppConstants;
+import net.sunil.dto.GenericResponse;
 
 @ControllerAdvice
 @RestController

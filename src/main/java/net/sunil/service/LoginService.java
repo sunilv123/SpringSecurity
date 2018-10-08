@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import net.sunil.bean.LoginBean;
+import net.sunil.dto.LoginBean;
 import net.sunil.modal.AppUser;
 
 public interface LoginService {

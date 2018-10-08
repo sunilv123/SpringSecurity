@@ -20,7 +20,7 @@ public class AppUser {
 	
 	
 	//@ColumnTransformer(read = "pgp_sym_decrypt(email, ‘secretKey')", write = "pgp_sym_encrypt(?, ‘secretKey’)")
-	@ColumnTransformer(
+	/*@ColumnTransformer(
 		    read =  "pgp_sym_decrypt(" +
 		            "    email, " +
 		            "    current_setting('secret.key')" +
@@ -30,7 +30,7 @@ public class AppUser {
 		            "    current_setting('secret.key')" +
 		            ") ")
 	//@Transient
-	@Column(columnDefinition="bytea")
+	@Column(columnDefinition="bytea")*/
 	private String email;
 	
 	private String mobile;

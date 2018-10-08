@@ -1,20 +1,17 @@
 package net.sunil.config;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import net.sunil.bean.AppConstants;
+import net.sunil.dto.AppConstants;
 import net.sunil.modal.AppUser;
 
-@Component
-public class JwtTokenUtils implements Serializable{
+public class JwtTokenUtils{
 	
 	/**
 	 * 
@@ -52,7 +49,7 @@ public class JwtTokenUtils implements Serializable{
 
 	        return Jwts.builder()
 	                .setClaims(claims)
-	                .setIssuer("http://devglan.com")
+	               // .setIssuer("http://devglan.com")
 	                .setIssuedAt(new Date(System.currentTimeMillis()))
 	                .setExpiration(new Date(System.currentTimeMillis() + AppConstants.EXPIRATION_TIME))
 	                .signWith(SignatureAlgorithm.HS256, AppConstants.SECRET)

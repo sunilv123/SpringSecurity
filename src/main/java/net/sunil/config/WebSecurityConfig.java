@@ -1,5 +1,6 @@
 package net.sunil.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,25 +11,36 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import net.sunil.service.LoginService;
+
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
+	@Autowired
+	private LoginService loginService;
+	
 	    @Bean
 	    public AuthenticationManager authenticationManagerBean() throws Exception {
 	        return super.authenticationManagerBean();
 	    }
-	  
+	 /* 
 	  @Bean
 	    public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
 	        return new JwtAuthenticationFilter();
-	    }
+	    }*/
 	
+	     
+	    @Bean
+	    public JwtTokenUtils jwtTokenUtils() throws Exception {
+	        return new JwtTokenUtils();
+	    }
+	    
 	
 	@Override
 	public void configure(final WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/api/login", "/api/signup", "/v2/api-docs", "/configuration/ui", "/swagger-resources/**", 
-				  "/configuration/**", "/swagger-ui.html", "/webjars/**", "/api/dummy/**");
+				  "/configuration/**", "/swagger-ui.html", "/webjars/**", "/api/security/**");
 	}
 	
 	@Override
@@ -40,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.csrf().disable()
 		
 		.authorizeRequests().anyRequest().authenticated().and()
-		.addFilterBefore(authenticationTokenFilterBean(), BasicAuthenticationFilter.class);
+		.addFilterBefore(new JwtAuthenticationFilter(loginService, jwtTokenUtils()), BasicAuthenticationFilter.class);
 	                
 	    }
 	
