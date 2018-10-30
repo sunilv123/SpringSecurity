@@ -1,59 +1,32 @@
 package net.sunil.dto;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@JsonInclude(Include.NON_NULL)
+@Getter
+@Setter
 public class GenericResponse {
 
-	private String status;
-	
-	private String errorMessage;
-	
-	private Object payLoad;
-	
-	public GenericResponse(String status, String errorMessage, Object payLoad) {
-	
-		this.status = status;
-		this.errorMessage = errorMessage;
-		this.payLoad = payLoad;
-	}
-	
-	public GenericResponse(String status, String errorMessage) {
-		
-		this.status = status;
-		this.errorMessage = errorMessage;
-	}
+    private String status;
 
-	public GenericResponse(String status, Object payLoad) {
-		
-		this.status = status;
-		this.payLoad = payLoad;
-	}
-	
-	public String getStatus() {
-		return status;
-	}
+    private String message;
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    private Object payLoad;
 
-	public String getErrorMessage() {
-		return errorMessage;
-	}
+    public GenericResponse(String status, String message, Object payLoad) {
+        this.status = status;
+        this.message = message;
+        this.payLoad = payLoad;
+    }
 
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
+    public GenericResponse(String status, Object payLoad) {
 
-	public Object getPayLoad() {
-		return payLoad;
-	}
+        this.status = status;
+        this.payLoad = payLoad;
+    }
 
-	public void setPayLoad(Object payLoad) {
-		this.payLoad = payLoad;
-	}
-
-	
 	
 }

@@ -1,11 +1,13 @@
 package net.sunil.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+@JsonInclude(value=Include.NON_NULL)
 public class LoginBean {
-
 	
 	private String userName;
 	
@@ -15,6 +17,10 @@ public class LoginBean {
 	private String password;
 	
 	private String email;
+	
+	private String number;
+	
+	private String address;
 	
 	private String mobile;
 	
@@ -67,6 +73,22 @@ public class LoginBean {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 }

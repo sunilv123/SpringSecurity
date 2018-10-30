@@ -2,45 +2,42 @@ package net.sunil.dto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.sunil.security.util.AesUtil;
-
+import net.sunil.security.util.RsaUtil;
 
 public class EncryptedReq<T> {
 
+	private String securityKey;
 
-    private String securityKey;
-  
-    
-    private String payLoad;
+	private String securityIv;
 
-    public T getData(Class<T> c) {
-        try {
-           // this.securityKey = AesUtil.decryptAngular(securityKey);
+	private String payLoad;
 
-            ObjectMapper mapper = new ObjectMapper();
-            String decryptedData = AesUtil.decryptAngular(payLoad);
+	public T getData(Class<T> c) {
+		try {
 
-            return mapper.readValue(decryptedData, c);
+			ObjectMapper mapper = new ObjectMapper();
+			String decryptedData = RsaUtil.decrypt(payLoad);
 
-        } catch (Exception e) {
-            throw new SecurityException("Could not decrypt data");
-        }
-    }
+			return mapper.readValue(decryptedData, c);
 
-	public String getSecurityKey() {
-		return securityKey;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SecurityException("Could not decrypt data");
+		}
 	}
 
-	public void setSecurityKey(String securityKey) {
-		this.securityKey = securityKey;
+	public String getSecurityKey() throws Exception{
+		return  RsaUtil.decrypt(securityKey);
 	}
 
 	public String getPayLoad() {
 		return payLoad;
 	}
 
-	public void setPayLoad(String payLoad) {
-		this.payLoad = payLoad;
+
+	public String getSecurityIv() throws Exception{
+		return RsaUtil.decrypt(securityIv);
 	}
+
 
 }

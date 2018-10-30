@@ -17,8 +17,8 @@ import javax.crypto.NoSuchPaddingException;
 
 public class RsaUtil {
 
-	 private static String publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCr+Ne5MpDSi9mAkQCpQ6Rv2G6lnxSOobPBCw/ntdOAhClwZipFr2KITc+k1C7R0ATkZtgPJGt+TUc5zPhvqfD5szrgK9JZscYOqqQ9x278RTusl9PMDVxN0/vOE+wz8u7/A3YdOaG/2j/NriYdE0ufzDUVeEkDN8AGOP86blLsjwIDAQAB";
-	    private static String privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKv417kykNKL2YCRAKlDpG/YbqWfFI6hs8ELD+e104CEKXBmKkWvYohNz6TULtHQBORm2A8ka35NRznM+G+p8PmzOuAr0lmxxg6qpD3HbvxFO6yX08wNXE3T+84T7DPy7v8Ddh05ob/aP82uJh0TS5/MNRV4SQM3wAY4/zpuUuyPAgMBAAECgYBsVBV32M13g5bgMPcsqKp1te2FMN9fNacozFIZkOUJSLdd0U2BlghIelN5rhtMGXBrfAlQCI4aAo4CcAZzOKbNauUtPR4LibxodXHhOYls0FFYBB/JGEhJu9ECEgnAGzhtX7RolEbDM1FFLvEu6Ewql7rNfLQa1uhCrr7RPFG1qQJBAOUosQEMVlOh36If3EhwWttqP9hihF6G9pHJsnYK/O7X48Yr3J1jsOy1HLo3zsOd33vtTqsyfG4M2A9qv4wdHCsCQQDAHWhLxiOqF748di0Zs6z3tFbt8IgLMkU7OJnjsV3He81omZGixritIlxeWH6VdZBRVpu2dnRD35UuZr88zWstAkBx5HN0jekpz74SGbul1RGTE49/wBcB1BogAxrLSFLFck8mYw5WuwFn4+vPMYV1+7TjJuJ+e60UFRYdM3TX8m/ZAkAprbeUyNWv7xq8bz71ln9t9dfuIwLAuxU99dedCDu6LWewy7BGyioClbPIXBaKQkke/FUnzqcGmpj4yh2vCTm5AkEAzyPOrN6s6Hraeve5g5/eXIC1lcVejcgYBG91KyT3iu7tiUo82GkttALns8fjhrAeUm7r/KdyhprfL9d4Mazvpg==";
+	 public static String publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCr+Ne5MpDSi9mAkQCpQ6Rv2G6lnxSOobPBCw/ntdOAhClwZipFr2KITc+k1C7R0ATkZtgPJGt+TUc5zPhvqfD5szrgK9JZscYOqqQ9x278RTusl9PMDVxN0/vOE+wz8u7/A3YdOaG/2j/NriYdE0ufzDUVeEkDN8AGOP86blLsjwIDAQAB";
+	 public static String privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKv417kykNKL2YCRAKlDpG/YbqWfFI6hs8ELD+e104CEKXBmKkWvYohNz6TULtHQBORm2A8ka35NRznM+G+p8PmzOuAr0lmxxg6qpD3HbvxFO6yX08wNXE3T+84T7DPy7v8Ddh05ob/aP82uJh0TS5/MNRV4SQM3wAY4/zpuUuyPAgMBAAECgYBsVBV32M13g5bgMPcsqKp1te2FMN9fNacozFIZkOUJSLdd0U2BlghIelN5rhtMGXBrfAlQCI4aAo4CcAZzOKbNauUtPR4LibxodXHhOYls0FFYBB/JGEhJu9ECEgnAGzhtX7RolEbDM1FFLvEu6Ewql7rNfLQa1uhCrr7RPFG1qQJBAOUosQEMVlOh36If3EhwWttqP9hihF6G9pHJsnYK/O7X48Yr3J1jsOy1HLo3zsOd33vtTqsyfG4M2A9qv4wdHCsCQQDAHWhLxiOqF748di0Zs6z3tFbt8IgLMkU7OJnjsV3He81omZGixritIlxeWH6VdZBRVpu2dnRD35UuZr88zWstAkBx5HN0jekpz74SGbul1RGTE49/wBcB1BogAxrLSFLFck8mYw5WuwFn4+vPMYV1+7TjJuJ+e60UFRYdM3TX8m/ZAkAprbeUyNWv7xq8bz71ln9t9dfuIwLAuxU99dedCDu6LWewy7BGyioClbPIXBaKQkke/FUnzqcGmpj4yh2vCTm5AkEAzyPOrN6s6Hraeve5g5/eXIC1lcVejcgYBG91KyT3iu7tiUo82GkttALns8fjhrAeUm7r/KdyhprfL9d4Mazvpg==";
 
 	    public static PublicKey getPublicKey(String base64PublicKey) {
 	        PublicKey publicKey = null;
@@ -74,8 +74,8 @@ public class RsaUtil {
 	    	String data = "Hello World";
 	    	byte[] encryptedByteArray = encrypt(data, publicKey);
 	    	System.out.println(new String(encryptedByteArray));
-	    	
-	    	System.out.println(decrypt(encryptedByteArray, getPrivateKey(privateKey)));
+	        String enc = "VKBQ+0qwbnDBwDJ9rJpksmV59HGUUxIBCGmnG3EGNLWJ4Pg9FOn35YsyH2Y4/fzBzy8DgAyRed9XLJwj2F7emhDP/40NAHxVU/lGhm6v8FAjAmeRC5TnmO2iR8XlW6Vc6D/djqm5KOET9EzulrXP0lDWDnG745nDasQ9BAWIoLo=";
+	    	System.out.println(decrypt(enc));
 	    	
 		}
 	    
